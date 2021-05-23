@@ -1,0 +1,64 @@
+{
+  "cache_ttl": "300s",
+  "timeout": "1s",
+  "output_encoding": "json",
+  "version": "2",
+  "name": "test-krakend",
+  "endpoints": [
+    {
+      "endpoint": "/be-prova-1",
+      "output_encoding": "json",
+      "method": "GET",
+      "headers_to_pass": [
+        "*"
+      ],
+      "backend": [
+        {
+          "url_pattern": "/api/v1/prova-be",
+          "host": [
+            "http://localhost:8080"
+          ],
+          "encoding": "json",
+          "method": "GET",
+          "deny": [
+            "prova",
+            "prova2"
+          ],
+          "allow": [
+            "allow1",
+            "allow2"
+          ],
+          "group": "marco-group",
+          "mapping": {
+            "mapping1": "value1"
+          },
+          "target": "data",
+          "extra_config": {
+            "github.com/devopsfaith/krakend-jose/validator": {
+              "alg": "RS256",
+              "cache": true,
+              "cache_duration": 1800,
+              "jwk-url": "https://accessosicuro-trial.rete.toscana.it/auth/realms/arpa/protocol/openid-connect/certs"
+            }
+          }
+        }
+      ],
+      "extra_config": {
+        "github.com/devopsfaith/krakend-jose/validator": {
+          "alg": "RS256",
+          "cache": true,
+          "cache_duration": 1800,
+          "jwk-url": "https://accessosicuro-trial.rete.toscana.it/auth/realms/arpa/protocol/openid-connect/certs"
+        }
+      }
+    }
+  ],
+  "extra_config": {
+    "github_com/devopsfaith/krakend-jose/validator": {
+      "alg": "RS256",
+      "cache": true,
+      "cache_duration": 1800,
+      "jwk-url": "https://accessosicuro-trial.rete.toscana.it/auth/realms/arpa/protocol/openid-connect/certs"
+    }
+  }
+}
