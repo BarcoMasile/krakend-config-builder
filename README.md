@@ -2,4 +2,4 @@
 
 
 ### Known Limitations
-- Loading order for plugins
+- No possibility to extend exstiting plugins
