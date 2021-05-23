@@ -37,10 +37,11 @@ class KrakendConfigPlugins
 end
 
 class Plugin
-  attr_reader :id
+  attr_accessor :id, :extends
 
   def initialize(id)
     @id = id
+    @extends = nil
   end
 
   def type
@@ -49,6 +50,12 @@ class Plugin
 
   def build
     Hash.new
+  end
+
+  def build_extension
+    plugin = KrakendConfigPlugins.get(self.type, @extends) if @extends
+    h = plugin.nil? ? {} : plugin.build
+    h
   end
 end
 
@@ -70,7 +77,18 @@ class EndpointPlugin < ConfigPlugin
     h = @endpoint.to_hash
     h[:backend] = build_backends(@endpoint)
     h[:extra_config] = build_extra_config(@endpoint)
-    h
+
+    ext = build_extension()
+
+    if h[:backend].empty?
+      h.delete(:backend)
+    end
+
+    if h[:extra_config].empty?
+      h.delete(:extra_config)
+    end
+
+    ext.merge h
   end
 
   private
@@ -90,7 +108,13 @@ class BackendPlugin < ConfigPlugin
   def build
     h = @backend.to_hash
     h[:extra_config] = build_extra_config(@backend)
-    h
+    ext = build_extension()
+
+    if h[:extra_config].empty?
+      h.delete(:extra_config)
+    end
+
+    ext.merge h
   end
 end
 
@@ -104,7 +128,13 @@ class ExtraConfigPlugin < Plugin
 
   def build
     h = Hash.new
-    h[@key] = @config
+    config = @config
+
+    ext = build_extension()
+    value = ext.values.first
+    config = value.merge config if value
+
+    h[@key] = config
     h
   end
 end

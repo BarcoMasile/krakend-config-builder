@@ -54,11 +54,8 @@
     }
   ],
   "extra_config": {
-    "github_com/devopsfaith/krakend-jose/validator": {
-      "alg": "RS256",
-      "cache": true,
-      "cache_duration": 1800,
-      "jwk-url": "https://accessosicuro-trial.rete.toscana.it/auth/realms/arpa/protocol/openid-connect/certs"
+    "chiave_extra_config": {
+      "cache": false
     }
   }
 }
