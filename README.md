@@ -14,5 +14,6 @@ lorem ipsum
 ### Extending an existing plugin
 lorem ipsum
 
-### TODO
-- Test the extension system
+
+### Roadmap
+- Supporting other krakend configuration file formats (other than json)
