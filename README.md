@@ -39,7 +39,7 @@ Check out [this example](https://github.com/BarcoMasile/krakend-config-builder/b
 require 'json'
 ```
 
-That'it.
+That's it.
 
 ### Roadmap
 - allow other config file formats other than json
