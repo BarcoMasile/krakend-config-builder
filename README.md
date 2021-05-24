@@ -34,6 +34,12 @@ KrakendConfigPlugins.register(your_plugin_instance)
 You can extend an existing plugin by specifying the properties you want to diverge from the original just by implementing a new plugin with the properties you want to override and then set the __:extends__ property to the _id_ of the plugin you want to inherit from.
 Check out [this example](https://github.com/BarcoMasile/krakend-config-builder/blob/master/plugins/endpoint-extension-test.rb).
 
+#### Dependencies
+```ruby
+require 'json'
+```
+
+That'it.
 
 ### Roadmap
 - allow other config file formats other than json
