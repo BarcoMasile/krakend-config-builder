@@ -8,22 +8,32 @@ Just write your plugin using the single import for the [plugin-imports.rb](https
 ### Plugin types
 - EndpointPlugin: defining a single krakend _endpoint_ entry
 - BackendPlugin: defining a single krakend _backend_ entry
-- ExtraConfigPlugin: to define a single krakend _extra_config_ entry (for any scope).
+- ExtraConfigPlugin: to define a single krakend _extra_config_ entry (for any scope)
+
+### Plugin Class
+Every plugin has at least 2 properties:
+- id: the id for the plugin (mandatory)
+- extends: the id of the plugin extended by this plugin (optional)
 
 #### EndpointPlugin
+Other than the common Plugin Class properties, the setter __:endpoint__ is used to provide a custom [Endpoint](https://github.com/BarcoMasile/krakend-config-builder/blob/master/shared/endpoint.rb) to be injected in the config file.
 
 #### BackendPlugin
+The __:backend__ setter is used to inject an instance of [Backend](https://github.com/BarcoMasile/krakend-config-builder/blob/master/shared/backend.rb)
 
 #### ExtraConfigPlugin
-
-### Writing your plugin
-lorem ipsum
+This plugin is a little different and is used to provide a key and a json object to populate the "extra_config" object at any scope in the krakend config file. Check out [this](https://github.com/BarcoMasile/krakend-config-builder/blob/master/plugins/arpa-jwt-validator-plugin.rb) example.
 
 ### Register your plugin
-lorem ipsum
+To register your newly implemented plugin you just need to call
+```ruby
+KrakendConfigPlugins.register(your_plugin_instance)
+```
 
 ### Extending an existing plugin
-lorem ipsum
+You can extend an existing plugin by specifying the properties you want to diverge from the original just by implementing a new plugin with the properties you want to override and then set the __:extends__ property to the _id_ of the plugin you want to inherit from.
+Check out [this example](https://github.com/BarcoMasile/krakend-config-builder/blob/master/plugins/endpoint-extension-test.rb).
 
-### TODO
-- Test the extension system
+
+### Roadmap
+- allow other config file formats other than json
